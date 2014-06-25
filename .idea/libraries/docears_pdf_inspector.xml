@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="docears-pdf-inspector">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/docears-pdf-inspector.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
