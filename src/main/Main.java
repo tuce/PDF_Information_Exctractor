@@ -24,6 +24,7 @@ public class Main {
 //                System.out.println("Index: " + i);
                 PDDocument doc = PDDocument.load(new File("C:\\Users\\Tugce\\Desktop\\Breast Cancer/b10.pdf"));
 
+
                 PDFText2HTML stripper = new PDFText2HTML("");
                 stripper.setStartPage(1);
                 stripper.setEndPage(1);
@@ -40,6 +41,12 @@ public class Main {
             } catch (StringIndexOutOfBoundsException e) {
                 e.printStackTrace();
             } catch (NullPointerException e) {
+                e.printStackTrace();
+            } catch (ArrayIndexOutOfBoundsException e){
+                e.printStackTrace();
+            } catch(ClassCastException e){
+                e.printStackTrace();
+            } catch (NumberFormatException e){
                 e.printStackTrace();
             }
         }

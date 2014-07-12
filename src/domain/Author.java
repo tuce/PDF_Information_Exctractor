@@ -23,6 +23,9 @@ public class Author {
     public Author(String name_surname) {
         this.name_surname = name_surname;
     }
+//    public Author(int index){
+//        this.index = index;
+//    }
 
     public int getIndex() {
         return index;
