@@ -22,7 +22,7 @@ public class Main {
             try {
 
 //                System.out.println("Index: " + i);
-                PDDocument doc = PDDocument.load(new File("C:\\Users\\Tugce\\Desktop\\Breast Cancer/b10.pdf"));
+                PDDocument doc = PDDocument.load(new File("C:\\Users\\Tugce\\Desktop\\Breast Cancer/b47.pdf"));
 
 
                 PDFText2HTML stripper = new PDFText2HTML("");

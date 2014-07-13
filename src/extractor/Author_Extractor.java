@@ -21,7 +21,7 @@ public class Author_Extractor {
 
         if (Character.isDigit((doc.select("p").set(0, paragraphs)).text().charAt(0)) == false) { // page numarasını var ilk sayfada
 
-//            try {
+
 
                 paragraphs = doc.select("p").set(1, paragraphs);
                 Element ext_author = paragraphs;
@@ -30,18 +30,16 @@ public class Author_Extractor {
                 if (paragraphs.text().contains("and") == true) {//içinde sadece and varsa
 
                     String[] ext_author1 = ext_author.text().split("\\s*and+s*");
-                    if (Arrays.toString(ext_author1).contains(",") == true)//içinde and olup vırgul varsa
-
-                    {
-
-                        String[] ext_author3 = ext_author.text().split(",");
-
+                    if (Arrays.toString(ext_author1).contains(",") == true){//içinde and olup vırgul varsa
+                        String ext_author5 = ext_author.text().replaceAll("\\*,", "").replaceAll(",\\*","");
+                        String[] ext_author3 = ext_author5.split(",");
 
                         for (int i = 0; i < ext_author3.length; i++) {
 
                             if (ext_author3[i].contains("and") == true) { //virgüllerin içinde and varsa
 
                                 String[] ext_author4 = ext_author3[i].split("and");//and olanları array attı
+
 
 
                                 for (int j = 0; j < ext_author4.length; j++) {//andları bastı
@@ -55,27 +53,19 @@ public class Author_Extractor {
 
 
                                 }
-                            } else//eger virgülleri arasında and yoksa vıgullerı bastı.
-                            {
-                                String index = Arrays.asList(ext_author3[i].replaceAll("[^0-9]+", " ").trim().split(" ")).get(0);
-//                                System.out.println(index);
+                            } else{//eger virgülleri arasında and yoksa vıgullerı bastı.
 
+                                String index = Arrays.asList(ext_author3[i].replaceAll("[^0-9]+", "").trim().split("")).get(0);
+//                                System.out.print(index);
                                 String name_surname = ext_author3[i].replaceAll("\\d", "").replace("∗", "").replace("*", "");
+                                System.out.println("[AuthorExctractor-60] "+ name_surname);
+                                Author author = new Author(Integer.parseInt(index), name_surname);
+                                authors.add(author);
 
 
-                                    if(Character.isDigit(ext_author3[i].charAt(0))== true) {//ustleri virgulle ayrılmıssa boslukları bastırmamak için
-                                       ext_author3[i]=null;
-                                        System.out.println("[authors-68]"+name_surname);
-                                        Author author = new Author(Integer.parseInt(index), name_surname);
-                                        authors.add(author);
 
-                                    }
-                                else {
-//                                        System.out.println("[AuthorExctractor-62]" + ext_author3[i].replaceAll("∗","").replace("*",""));
 
-//                                        System.out.println(index);
 
-                                    }
 
                             }
                         }

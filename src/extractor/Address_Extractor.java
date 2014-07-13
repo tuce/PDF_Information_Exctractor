@@ -26,7 +26,7 @@ public class Address_Extractor {
             Element paragraphs = null;
 
     String indexes[] = new String[authors.size()];
-    String index = "";
+//    String index = "";
 
 
     for (int i = 0; i < authors.size(); i++) {//int olarak gelen sayıları string cevirdim.
@@ -37,19 +37,21 @@ public class Address_Extractor {
             indexes[i] = String.valueOf(authors.get(i).getIndex());
 
 
-        else {
-            if(i < authors.size()-1)
-                indexes[i] = String.valueOf(authors.get(i).getIndex() + "~");
-
-            else
-                indexes[i] = String.valueOf(authors.get(i).getIndex());
-            }
+//        else {
+//            if(i < authors.size()-1)
+//                indexes[i] = String.valueOf(authors.get(i).getIndex() + "~");
+//
+//            else
+//                indexes[i] = String.valueOf(authors.get(i).getIndex());
+//            }
 
         }
 
-        for(int i=0; i<indexes.length; i++)//string arrays olan indexes,string index cevirdi
-            index+= indexes[i];
-//        System.out.println(index);
+//        for(int i=0; i<indexes.length; i++)//string arrays olan indexes,string index cevirdi
+//            index+= indexes[i];
+        System.out.println(Arrays.toString(indexes));
+
+
 
 
 
@@ -65,75 +67,15 @@ public class Address_Extractor {
 
         }
     }
-    else if (indexes[0].contains("~") == true) { //içinde ~
+
+        num(indexes,doc,paragraphs);
 
 
-        String div[] = new String[indexes.length];
-        div = index.split("~");
-        String pattern = null;
-        String pattern1 = null;
-
-        for (int i = 0; i < indexes.length; i++) {
-            pattern = div[i];
-            if (++i < indexes.length) {
-
-                pattern1 = div[i];
-                String text = doc.select("p").set(2, paragraphs).text() + 9;
-                Pattern p = Pattern.compile(Pattern.quote(pattern) + "(.*?)" + Pattern.quote(pattern1));
-                Matcher m = p.matcher(text);
-                while (m.find()) {
-                    System.out.println(m.group(1));
-
-                }
-            }
-        }
 
 
-    }
-//
-//
-//            if(indexes[0].equals(indexes[1])==false){
-//
-//                for (int i =0 ; i<indexes.length-1; i++) {
-//                String pattern1 = indexes[i];
-//                String pattern2 = indexes[i + 1];
-//                String pattern3 = "</p>";
-//                String text = null;
-//
-//                if ((doc.select("p").set(2, paragraphs) != null)) {
-//                    text = doc.select("p").set(2, paragraphs).text();
-//
-//                }
-//                Pattern p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
-//
-//                Matcher m = p.matcher(text);
-//
-//
-//                while (m.find()) {
-//
-//                    System.out.println("[Address-Extractor-51]"+m.group(1));
-//                    String text1[] = new String[text.length()];
-//                    for (int j = 0; j < text.length(); j++) {
-//
-//                        text1[j] = String.valueOf(text.charAt(j));//array cevirdim text içindekiler
-//                        if (m.group(1).length() + 1 < j) {//ilk adrsi atıp ikincisini basıyor.
-//                            System.out.print("[Address-Extractor-57]"+text1[j]);
-//                        }
-//                    }
-//                }
-//
-//
-//            }
-//            }
-//                else if(indexes[0].equals(indexes[1])==true && Character.isDigit(indexes[0].charAt(0))==true && Character.isDigit(indexes[1].charAt(0))==true){//tek bir adres varsa
-//
-//                    String text = doc.select("p").set(3, paragraphs).text();//adres 3.paragraftaysa
-//                    for (int i = 0; i <authors.size() ; i++) {
-////                        System.out.println("[Address-Extractor-69]"+text);
-//
-//                    }
-//
-//                }
+
+
+
 
 
 
@@ -145,5 +87,50 @@ public class Address_Extractor {
 
         return null;
     }
+
+
+
+    public static void num(String indexes[],Document doc, Element paragraphs) {
+        for (int i = 0; i < indexes.length; i++) {
+            String pattern = indexes[i];
+//            System.out.println(pattern);
+            String pattern2;
+            if (i + 1 >= indexes.length) {
+                pattern2 = "~";
+            } else {
+                pattern2 = indexes[i + 1];
+            }
+            String text = doc.select("p").set(2, paragraphs).text() + "~";
+            Pattern p = Pattern.compile(Pattern.quote(pattern) + "(.*?)" + Pattern.quote(pattern2));
+            Matcher m = p.matcher(text);
+            while (m.find()) {
+                System.out.println(m.group(1));
+
+            }
+        }
+    }
+//        String div[] = new String[indexes.length];
+//        div = index.split("~");
+//        String pattern = null;
+//        String pattern1 = null;
+//
+//        for (int i = 0; i < indexes.length; i++) {
+//            pattern = div[i];
+//            if (++i < indexes.length) {
+//
+//                pattern1 = div[i];
+//                String text = doc.select("p").set(2, paragraphs).text() + 9;
+//                Pattern p = Pattern.compile(Pattern.quote(pattern) + "(.*?)" + Pattern.quote(pattern1));
+//                Matcher m = p.matcher(text);
+//                while (m.find()) {
+//                    System.out.println(m.group(1));
+//
+//                }
+//            }
+//        }
+
+
+
+
 
 }
